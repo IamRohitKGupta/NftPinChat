@@ -4,16 +4,18 @@ const cors = require('cors');
 
 const app = express();
 app.use(bodyParser.json());
-// Enable CORS
+
 // Define the allowed origin
 const allowedOrigin = 'https://nftpin.xyz';
 
 // Enable CORS with origin option
+/*
 app.use(
   cors({
     origin: allowedOrigin,
   })
 );
+*/
 
 const chats = [];
 
