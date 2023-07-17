@@ -9,13 +9,11 @@ app.use(bodyParser.json());
 const allowedOrigin = 'https://nftpin.xyz';
 
 // Enable CORS with origin option
-/*
 app.use(
   cors({
     origin: allowedOrigin,
   })
 );
-*/
 
 const chats = [];
 
