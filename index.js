@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors');
 const http = require('http'); // Import the built-in http module
 const socketIO = require('socket.io'); // Import Socket.IO
 
@@ -9,16 +8,6 @@ app.use(bodyParser.json());
 
 const server = http.createServer(app); // Create an HTTP server instance
 const io = socketIO(server); // Pass the server to Socket.IO
-
-// Define the allowed origin
-const allowedOrigin = 'https://nftpin.xyz';
-
-// Enable CORS with origin option
-app.use(
-  cors({
-    origin: allowedOrigin,
-  })
-);
 
 const chats = [];
 
@@ -69,3 +58,6 @@ io.on('connection', (socket) => {
     console.log('A user disconnected');
   });
 });
+
+// Socket.IO origins setup (Allow requests from 'https://nftpin.xyz')
+io.origins('https://nftpin.xyz');
