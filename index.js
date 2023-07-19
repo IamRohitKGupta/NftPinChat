@@ -1,13 +1,20 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const http = require('http'); // Import the built-in http module
-const socketIO = require('socket.io'); // Import Socket.IO
+const { Server } = require('socket.io');
 
 const app = express();
 app.use(bodyParser.json());
 
-const server = http.createServer(app); // Create an HTTP server instance
-const io = socketIO(server); // Pass the server to Socket.IO
+const server = app.listen((process.env.PORT || 8000), () => {
+  console.log(`Server listening on port ${process.env.PORT || 8000}`);
+});
+
+const io = new Server(server, {
+  cors: {
+    origin: 'https://nftpin.xyz',
+    methods: ['GET', 'POST'],
+  },
+});
 
 const chats = [];
 
@@ -41,11 +48,6 @@ app.get('/chats', (req, res) => {
   res.json(chats);
 });
 
-const port = 8000;
-server.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
-
 // Socket.IO event for new client connections
 io.on('connection', (socket) => {
   console.log('A user connected');
@@ -58,6 +60,3 @@ io.on('connection', (socket) => {
     console.log('A user disconnected');
   });
 });
-
-// Socket.IO origins setup (Allow requests from 'https://nftpin.xyz')
-io.origins('https://nftpin.xyz');
