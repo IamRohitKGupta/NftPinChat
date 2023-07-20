@@ -15,7 +15,7 @@ const server = app.listen((process.env.PORT || 8000), '0.0.0.0', () => {
 
 const io = new Server(server, {
   cors: {
-    origin: 'https://nftpin.xyz',
+    origin: '*',
     methods: ['GET', 'POST'],
   },
 });
