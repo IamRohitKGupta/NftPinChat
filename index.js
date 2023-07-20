@@ -10,7 +10,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-const server = app.listen((process.env.PORT || 8000), '0.0.0.0', () => {
+const server = app.listen((process.env.PORT || 8000), '127.0.0.1', () => {
   console.log(`Server listening on port ${process.env.PORT || 8000}`);
 });
 
