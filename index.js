@@ -1,3 +1,4 @@
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const { Server } = require('socket.io');
@@ -140,6 +141,7 @@ const bodyParser = require('body-parser');
 const { Server } = require('socket.io');
 const cors = require('cors');
 const mysql = require('mysql2');
+require('dotenv').config();
 
 const app = express();
 app.use(bodyParser.json());
@@ -152,14 +154,25 @@ const sslConfig = {
 
 // Create a MySQL database connection
 const connection = mysql.createConnection({
-  host: 'aws.connect.psdb.cloud',//'db4free.net',
-  user: 'tcq4hy9w1l0biv78i05q',//'nftpinadmin',
-  password: 'pscale_pw_OxuZ5BOzsnf2NzkvlSFvChP9HnUHv0egC9MbqvT4DFA',//'JFKbbidel',
-  database: 'nftpin_db',//'nftpindb',
-  port: 3306,//3306,
+  host: process.env.HOST,
+  user: process.env.USER,
+  password: process.env.PASS,
+  database: process.env.DB,
+  port: 3306,
   ssl: sslConfig,
 });
 
+connection.connect((err) => {
+  if (err) {
+    console.error('Error connecting to MySQL database:', err);
+  } else {
+    console.log('Connected to MySQL database');
+  }
+});
+*/
+/*
+const mysql = require('mysql2')
+const connection = mysql.createConnection(process.env.AUTH)
 connection.connect((err) => {
   if (err) {
     console.error('Error connecting to MySQL database:', err);
